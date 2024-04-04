@@ -1,0 +1,52 @@
+<div class="p-3">
+  <div class="row">
+    <div class="container d-flex justify-content-center align-items-center mt-4">
+      <div class="card " style="width: 500px">
+        <div class="card-header  bg-dark text-light">Detail Profile</div>
+        <div class="card-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label">Username :</label>
+              <input class="form-control" type="text" [value]="profile.username">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Last Name :</label>
+              <input class="form-control" type="text" [value]="profile.lastname">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">First Name :</label>
+              <input class="form-control" type="text" [value]="profile.firstname">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email :</label>
+              <input class="form-control" type="text" [value]="profile.email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password :</label>
+              <input class="form-control" type="password" [value]="profile.password">
+            </div>
+            <div class="mb-3">
+
+              <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="gender" value="MALE">
+                <label class="form-check-label">
+                  Male
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="gender" value="FEMALE">
+                <label class="form-check-label">
+                  Female
+                </label>
+              </div>
+            </div>
+            <div style="text-align: center">
+              <button class="btn btn-sm btn-info">update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

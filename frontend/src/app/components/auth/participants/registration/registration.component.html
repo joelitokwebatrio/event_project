@@ -1,0 +1,112 @@
+<div class="p-3">
+  <div class="row">
+    <div class="container d-flex justify-content-center align-items-center mt-4">
+      <div class="card " style="width: 500px">
+        <div *ngIf="formStatus==1" class="alert alert-success">
+          <label>User Registration Success </label>
+          <button class="btn btn-success" routerLink="/login">Login</button>
+        </div>
+        <div *ngIf="formStatus==2" class="alert alert-danger">
+          {{errorMessage}}
+        </div>
+        <ng-template #error_template>{{errorMessage}}</ng-template>
+        <div class="card-header  bg-dark text-light">New User Registration</div>
+        <div class="card-body" *ngIf="registrationFormGroup">
+          <form [formGroup]="registrationFormGroup" (ngSubmit)="registerUser()">
+            <div class="mb-3">
+              <label class="form-label">Username :</label>
+              <input class="form-control" type="text" formControlName="username">
+              <span class="text-danger"
+                    *ngIf="username.errors && (username.valid==false) &&(username['dirty']|| username['touched'])">
+              <span *ngIf="username.errors!['usernameDuplicated']">
+                This Username is not available
+              </span>
+              <span *ngIf="username.errors!['required'] || username.errors!['notOnlyWhitespace']">
+                The username is Required
+              </span>
+            </span>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Last Name :</label>
+              <input class="form-control" type="text" formControlName="lastname">
+              <div *ngIf="lastname.errors && lastname.invalid &&(lastname['dirty']|| lastname['touched'])"
+                   class="alert alert-danger">
+                <div *ngIf="lastname.errors!['required'] || lastname.errors!['notOnlyWhitespace']">Last Name is
+                  Required
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">First Name :</label>
+              <input class="form-control" type="text" formControlName="firstname">
+              <div *ngIf="firstname.errors && firstname.invalid &&(firstname['dirty']|| firstname['touched'])"
+                   class="alert alert-danger">
+                <div *ngIf="firstname.errors!['required'] || firstname.errors!['notOnlyWhitespace']">First Name is
+                  Required
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email :</label>
+              <input class="form-control" type="text" formControlName="email">
+              <div *ngIf="email.errors && email.invalid &&(email['dirty']|| email['touched'])"
+                   class="alert alert-danger">
+              <span *ngIf="email.errors!['emailDuplicated']">
+                This Email is already is used
+              </span>
+                <div *ngIf="email.errors!['email']">Email is not correct</div>
+                <div *ngIf="email.errors!['required'] || email.errors!['notOnlyWhitespace'] ">Email is Required</div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password :</label>
+              <input class="form-control" type="password" formControlName="password">
+              <div *ngIf="username.errors && password.invalid &&(password['dirty']|| password['touched'])"
+                   class="alert alert-danger">
+                <div *ngIf="password.errors!['required'] || password.errors!['notOnlyWhitespace']">Password is
+                  Required
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Confirm Password :</label>
+              <input class="form-control" type="password" formControlName="confirmPassword">
+              <div
+                *ngIf="username.errors && confirmPassword.invalid &&(confirmPassword['dirty']|| confirmPassword['touched'])"
+                class="alert alert-danger">
+                <div *ngIf="confirmPassword.errors!['required']|| confirmPassword.errors!['notOnlyWhitespace']">Password
+                  is Required
+                </div>
+                <div *ngIf="confirmPassword.errors!['ValuesNotMatch']">Passwords Not Match</div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="form-check">
+                <input class="form-check-input " type="radio" formControlName="gender" value="MALE">
+                <label class="form-check-label">
+                  Male
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="gender" value="FEMALE">
+                <label class="form-check-label">
+                  Female
+                </label>
+              </div>
+            </div>
+            <div class="mb-3" *ngIf="authService.hasRole('ORGANIZER')">
+              <label class="form-label">Role: </label>
+              <select class="form-control" formControlName="role">
+                <option *ngFor="let role of roles">{{ role }}</option>
+              </select>
+            </div>
+            <div style="text-align: center">
+              <button [disabled]="!registrationFormGroup.valid" class="btn btn-info btn-sm">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

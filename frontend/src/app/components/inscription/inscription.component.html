@@ -1,0 +1,32 @@
+<div class="container mt-2">
+  <p class="d-inline-flex gap-1">
+    <a class="btn btn-sm btn-primary" data-bs-toggle="collapse" href="#collapseEvent" role="button"
+       aria-expanded="false" aria-controls="collapseEvent">
+      + Inscriptions
+    </a>
+  </p>
+  <div class="collapse" id="collapseEvent">
+    <div class="card card-body mb-2">
+      <form [formGroup]="inscriptionGroup" (ngSubmit)="inscriptionSubmit()">
+        <div class="mb-3">
+          <label class="form-label">Participants: </label>
+          <select class="form-control" formControlName="idParticipant">
+            <option *ngFor="let participant of participants" [value]="participant.id">{{ participant.email }}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Evenements: </label>
+          <select class="form-control" formControlName="idEvent">
+            <option *ngFor="let event of events" [value]="event.id">{{ event.title}}</option>
+          </select>
+        </div>
+        <button class="btn btn-sm btn-info">Inscription</button>
+      </form>
+      <button class="btn btn-sm btn-danger mt-2" (click)="inscriptionCancel()">Clique ici pour enlever le participant de
+        l'evenement
+      </button> &nbsp;
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,25 @@
+<div class="p-3">
+  <div class="row">
+    <div class="container d-flex justify-content-center align-items-center mt-4">
+      <div class="card " style="width: 500px">
+        <div *ngIf="participantDetail">
+          <div class="card">
+            <img [src]="imageUrl" class="card-img-top" height="300px" alt="Card image cap">
+            <div class="card-body">
+              <h3 class="card-title">{{participantDetail.username}}</h3>
+              <p class="card-text">{{participantDetail.firstname}}</p>
+              <p class="card-text">{{participantDetail.email}}</p>
+              <p class="card-text">Sexe : {{participantDetail.gender}}</p>
+              <button class="btn-primary btn btn-sm mt-2" (click)="back()"><i class="fa fa-arrow-left"
+                                                                              aria-hidden="true"></i>&nbsp; back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+</div>

@@ -1,0 +1,91 @@
+<div class="container mt-2">
+  <p class="d-inline-flex gap-1" *ngIf="authService.hasRole('ORGANIZER')">
+    <a class="btn btn-sm btn-primary" data-bs-toggle="collapse" href="#collapseEvent" role="button"
+       aria-expanded="false" aria-controls="collapseEvent">
+      + Events
+    </a>
+  </p>
+  <div class="collapse" id="collapseEvent">
+    <div class="card card-body mb-2">
+      <form [formGroup]="eventFormGroup" (ngSubmit)="eventSubmit()">
+        <div class="mb-3">
+          <label class="form-label">Titre :</label>
+          <input class="form-control" type="text" formControlName="title">
+          <span class="text-danger" *ngIf="title.errors && (title.valid==false) &&(title['dirty']|| title['touched'])">
+              <span *ngIf="title.errors!['required'] || title.errors!['notOnlyWhitespace']">
+                The title is Required
+              </span>
+            </span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Description :</label>
+          <input class="form-control" type="text" formControlName="description">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Date de Debut:</label>
+          <input class="form-control" type="datetime-local" formControlName="startEventDate">
+          <div
+            *ngIf="startEventDate.errors && startEventDate.invalid &&(startEventDate['dirty']|| startEventDate['touched'])"
+            class="alert alert-danger">
+            <div *ngIf="startEventDate.errors!['required'] || startEventDate.errors!['notOnlyWhitespace']">Date
+              required
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Date de Fin :</label>
+          <input class="form-control" type="datetime-local" formControlName="endEventDate">
+          <div *ngIf="endEventDate.errors && endEventDate.invalid &&(endEventDate['dirty']|| endEventDate['touched'])"
+               class="alert alert-danger">
+            <div *ngIf="endEventDate.errors!['required'] || endEventDate.errors!['notOnlyWhitespace'] ">Date is
+              Required
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Place :</label>
+          <input class="form-control" type="text" formControlName="place">
+        </div>
+        <div class="mb-3">
+          <!--          <label class="form-label">Nom de l'Organisateur: </label>-->
+          <input class="form-control" type="text" formControlName="organiserName" hidden/>
+        </div>
+        <div style="text-align: center">
+          <button [disabled]="!eventFormGroup.valid" class="btn btn-info btn-sm">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3  col-sm-6 mb-3"
+         *ngFor="let event of eventsList | paginate: { itemsPerPage: 4, currentPage: p}">
+      <div class="card">
+        <img [src]="imageUrl" class="card-img-top" height="140" width="70" alt="Card image cap">
+        <div class="card-body">
+
+          <h5 class="card-title">{{event.title}}</h5>
+          <p class="card-text">{{event.description}}</p>
+          <div style="text-align: center">
+            <button class="btn btn-sm btn-primary" (click)="detailEvent(event)">Voir</button> &nbsp;
+            <button class="btn btn-sm btn-warning"
+                    *ngIf="authService.hasRole('PARTICIPANT')"
+                    (click)="registerMyToEvent(event)">s'inscrire
+            </button> &nbsp;
+            <button class="btn btn-sm btn-danger" *ngIf="authService.hasRole('ORGANIZER')" (click)="deleteEvent(event)">
+              Supprimer
+            </button>&nbsp;
+            <button class="btn btn-sm btn-info" *ngIf="authService.hasRole('ORGANIZER')" (click)="updateEvent(event)">
+              Modifier
+            </button>&nbsp;
+        </div>
+
+      </div>
+        <button class="btn btn-sm btn-block btn-outline-success" *ngIf="authService.hasRole('ORGANIZER')"
+                (click)="getParticipants(event)">Personnes inscriptions
+        </button>
+    </div>
+  </div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+

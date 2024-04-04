@@ -1,0 +1,22 @@
+<div class="container d-flex justify-content-center align-items-center mt-4">
+  <form [formGroup]="loginFormGroup" (ngSubmit)="handleLogin()">
+    <div class="card" style="width: 400px;">
+      <div class="card-header bg-dark text-light">Authentication</div>
+      <div class="card-body">
+        <div class="text-danger">{{errorMessage}}</div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="text" class="form-control" id="email" formControlName="email">
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" formControlName="password">
+        </div>
+        <button class="btn btn-dark">Login</button>
+        <a class="btn btn-link" routerLink="/registration">Register</a>
+        <a class="btn btn-link" routerLink="/forgotPassword">Forgot Password</a>
+      </div>
+    </div>
+  </form>
+</div>
+
